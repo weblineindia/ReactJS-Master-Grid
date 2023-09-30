@@ -1,8 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus, faEdit, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { useGridContext } from '../utils/GridContext';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faPlus,
+  faMinus,
+  faEdit,
+  faCheck,
+  faTimes
+} from '@fortawesome/free-solid-svg-icons'
+import { useGridContext } from '../utils/GridContext'
 
 const GridTable = (props) => {
   const {
@@ -27,28 +33,27 @@ const GridTable = (props) => {
     selectedChildData,
     handleParentCheckboxChange,
     selectAllChecked,
-    handleSelectAll,
-  } = useGridContext();
+    handleSelectAll
+  } = useGridContext()
 
-  
   const getColumnKeysFromChildren = () => {
-    const columnKeys = [];
+    const columnKeys = []
     React.Children.forEach(children, (child) => {
-      if (child.type.name === "Column") {
+      if (child.type.name === 'Column') {
         columnKeys.push({
           columnKey: child.props.columnKey,
           columnType: child.props.columnType,
           isEditable: child.props.isEditable,
-          isParent: child.props.isParent,
-        });
+          isParent: child.props.isParent
+        })
       }
-    });
-    return columnKeys;
-  };
-  const columnKeys = getColumnKeysFromChildren();
-  
+    })
+    return columnKeys
+  }
+  const columnKeys = getColumnKeysFromChildren()
+
   const renderTableRow = (item, rowIndex) => {
-    const isChildRowExpanded = isRowExpanded(rowIndex);
+    const isChildRowExpanded = isRowExpanded(rowIndex)
 
     return (
       <React.Fragment key={rowIndex}>
@@ -56,18 +61,24 @@ const GridTable = (props) => {
           {(isShowChildrenGrid || isCheckboxVisible) && (
             <td>
               {isCheckboxVisible && (
-                <>
+                <React.Fragment>
                   <input
-                    type="checkbox"
+                    type='checkbox'
                     onChange={(e) =>
-                      handleParentCheckboxChange(rowIndex, e.target.checked, data, handleSelectCheckbox)
+                      handleParentCheckboxChange(
+                        rowIndex,
+                        e.target.checked,
+                        data,
+                        handleSelectCheckbox
+                      )
                     }
                     checked={
                       !!selectedChildData[rowIndex] &&
-                      selectedChildData[rowIndex].length === item.children.length
+                      selectedChildData[rowIndex].length ===
+                        item.children.length
                     }
                   />
-                </>
+                </React.Fragment>
               )}
               {isShowChildrenGrid && (
                 <button
@@ -86,88 +97,127 @@ const GridTable = (props) => {
           ))}
         </tr>
         {isShowChildrenGrid && isChildRowExpanded && (
-          <>
+          <React.Fragment>
             {item.children.length > 0 ? (
               item.children.map((child, childIndex) => (
                 <tr key={childIndex}>
                   {isCheckboxVisible && (
                     <td key={childIndex}>
                       <input
-                        type="checkbox"
-                        onChange={(e) => handleCheckboxChange(e, rowIndex, child, data, handleSelectCheckbox)}
+                        type='checkbox'
+                        onChange={(e) =>
+                          handleCheckboxChange(
+                            e,
+                            rowIndex,
+                            child,
+                            data,
+                            handleSelectCheckbox
+                          )
+                        }
                         checked={
                           !!selectedChildData[rowIndex] &&
                           selectedChildData[rowIndex].includes(child)
                         }
                       />
-                    </td>)}
+                    </td>
+                  )}
                   {columnKeys.map((cItem) => {
                     return (
                       <td key={cItem.columnKey}>
-                        {editedData[rowIndex]?.[childIndex]?.edit && cItem.columnKey !== 'action' ? (
-                          cItem.columnType === 'text' && cItem.isEditable && !cItem.isParent ?
+                        {editedData[rowIndex]?.[childIndex]?.edit &&
+                        cItem.columnKey !== 'action' ? (
+                          cItem.columnType === 'text' &&
+                          cItem.isEditable &&
+                          !cItem.isParent ? (
                             <input
                               type={cItem.columnType}
                               style={{ maxWidth: '100%' }}
                               value={
-                                editedData[rowIndex]?.[childIndex]?.[cItem.columnKey] ||
-                                child[cItem.columnKey]
+                                editedData[rowIndex]?.[childIndex]?.[
+                                  cItem.columnKey
+                                ] || child[cItem.columnKey]
                               }
                               onChange={(e) =>
-                                handleEdit(rowIndex, childIndex, cItem.columnKey, e.target.value)
+                                handleEdit(
+                                  rowIndex,
+                                  childIndex,
+                                  cItem.columnKey,
+                                  e.target.value
+                                )
                               }
-                            /> : child[cItem.columnKey]
+                            />
+                          ) : (
+                            child[cItem.columnKey]
+                          )
                         ) : (
-                          <>
-                            {cItem.columnKey !== 'action' ?
+                          <React.Fragment>
+                            {cItem.columnKey !== 'action' ? (
                               child[cItem.columnKey]
-                              :
+                            ) : (
                               <td key={childIndex}>
                                 {editedData[rowIndex]?.[childIndex]?.edit ? (
-                                  <>
+                                  <React.Fragment>
                                     <button
                                       className={`${expandButtonStyle}`}
-                                      onClick={() => handleSave(rowIndex, childIndex, data, columnKeys)}
+                                      onClick={() =>
+                                        handleSave(
+                                          rowIndex,
+                                          childIndex,
+                                          data,
+                                          columnKeys
+                                        )
+                                      }
                                     >
                                       <FontAwesomeIcon icon={faCheck} />
                                     </button>
                                     <button
                                       className={`${expandButtonStyle}`}
-                                      onClick={() => handleCancelEdit(rowIndex, childIndex)}
+                                      onClick={() =>
+                                        handleCancelEdit(rowIndex, childIndex)
+                                      }
                                     >
                                       <FontAwesomeIcon icon={faTimes} />
                                     </button>
-                                  </>
+                                  </React.Fragment>
                                 ) : (
                                   <button
                                     className={`${expandButtonStyle}`}
-                                    onClick={() => handleEdit(rowIndex, childIndex, 'edit', true)}
+                                    onClick={() =>
+                                      handleEdit(
+                                        rowIndex,
+                                        childIndex,
+                                        'edit',
+                                        true
+                                      )
+                                    }
                                   >
                                     <FontAwesomeIcon icon={faEdit} />
                                   </button>
                                 )}
                               </td>
-                            }
-                          </>
+                            )}
+                          </React.Fragment>
                         )}
                       </td>
                     )
-                  }
-                  )}
+                  })}
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={columnKeys.length + 2} className={noRecordMessageStyle}>
+                <td
+                  colSpan={columnKeys.length + 2}
+                  className={noRecordMessageStyle}
+                >
                   <p>{noRecordMessage}</p>
                 </td>
               </tr>
             )}
-          </>
+          </React.Fragment>
         )}
       </React.Fragment>
-    );
-  };
+    )
+  }
   return (
     <table className={gridTableStyle}>
       <thead>
@@ -175,12 +225,13 @@ const GridTable = (props) => {
           {isCheckboxVisible && (
             <th>
               <input
-                type="checkbox"
+                type='checkbox'
                 onChange={() => handleSelectAll(data, handleSelectCheckbox)}
                 checked={selectAllChecked}
               />
-            </th>)}
-          {(!isCheckboxVisible && isShowChildrenGrid) && <th></th>}
+            </th>
+          )}
+          {!isCheckboxVisible && isShowChildrenGrid && <th />}
           {children}
         </tr>
       </thead>
@@ -189,18 +240,21 @@ const GridTable = (props) => {
         {data?.length > 0 ? (
           data.map((item, rowIndex) => renderTableRow(item, rowIndex))
         ) : (
-          <tr >
-            <td colSpan={columnKeys.length + 2} className={noRecordMessageStyle}>
+          <tr>
+            <td
+              colSpan={columnKeys.length + 2}
+              className={noRecordMessageStyle}
+            >
               <p>{noRecordMessage}</p>
             </td>
           </tr>
         )}
       </tbody>
     </table>
-  );
-};
+  )
+}
 
-export default GridTable;
+export default GridTable
 
 GridTable.propTypes = {
   data: PropTypes.array,
@@ -208,5 +262,5 @@ GridTable.propTypes = {
   noRecordMessage: PropTypes.string,
   noRecordMessageStyle: PropTypes.any,
   gridTableStyle: PropTypes.any,
-  expandButtonStyle: PropTypes.any,
-};
+  expandButtonStyle: PropTypes.any
+}

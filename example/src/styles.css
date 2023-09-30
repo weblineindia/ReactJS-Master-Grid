@@ -3,8 +3,8 @@
   --background-color: white;
   --text-color: black;
   --table-background: rgba(255, 255, 255, 0.5);
-  --table-header:  #f2f2f2;;
-  --hover-background:  #5564be;
+  --table-header: #f2f2f2;
+  --hover-background: #5564be;
   --tr-even-background: #dcd9d9;
 }
 
@@ -52,7 +52,7 @@ body {
 .grid-table th {
   background-color: var(--table-header);
   position: sticky;
-  top:0;
+  top: 0;
 }
 
 /* .grid-table td:first-child, .grid-table td:last-child {
@@ -64,7 +64,7 @@ body {
     max-width: 100%;
 } */
 
-.no-record-message-style{
+.no-record-message-style {
   display: table-cell !important;
 }
 .grid-table tbody tr:nth-child(odd) {
@@ -94,7 +94,7 @@ body {
   flex: 1;
   position: relative;
 }
-.input-area{
+.input-area {
   position: relative;
   display: flex;
   margin-bottom: 15px;
@@ -128,7 +128,7 @@ body {
   border-radius: 6px;
 }
 
-.input-area .column-vidibility{
+.input-area .column-vidibility {
   position: static;
   width: 60px;
   height: 50px;
@@ -162,11 +162,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--hover-background);;
-  border-radius: 50%; 
+  border: 1px solid var(--hover-background);
+  border-radius: 50%;
   position: absolute;
-  top: 2%; 
-  right: 2%; 
+  top: 2%;
+  right: 2%;
   background-color: var(--table-background);
   color: var(--text-color);
 }
@@ -233,7 +233,6 @@ body {
   color: var(--text-color);
 }
 
-
 /* Export To Excel Button */
 .button {
   padding: 10px 12px;
@@ -247,16 +246,16 @@ body {
 
 /* Column visibilty */
 .column-visibility {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    right: 0;
-    background-color: var(--background-color);
-    padding: 10px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
-    z-index: 1;
-    border-radius: 8px;
-    width: 13%;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  right: 0;
+  background-color: var(--background-color);
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+  z-index: 1;
+  border-radius: 8px;
+  width: 13%;
 }
 
 .column-visibility input {
@@ -273,10 +272,10 @@ body {
   cursor: pointer;
 }
 
-.row{
+.row {
   display: flex;
-    align-content: center;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
 }

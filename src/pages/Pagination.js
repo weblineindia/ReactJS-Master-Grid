@@ -1,9 +1,10 @@
 /* The Pagination component handles pagination and renders the page numbers. */
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const Pagination = (props) => {
-  const { totalPages = 1,
+  const {
+    totalPages = 1,
     paginationStyle,
     paginationActiveStyle,
     handlePageChange,
@@ -22,12 +23,12 @@ const Pagination = (props) => {
         </li>
       ))}
     </ul>
-  );
-};
-export default Pagination;
+  )
+}
+export default Pagination
 
 Pagination.propTypes = {
   totalPages: PropTypes.number,
   paginationStyle: PropTypes.any,
-  paginationActiveStyle: PropTypes.any,
+  paginationActiveStyle: PropTypes.any
 }
