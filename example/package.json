@@ -13,7 +13,7 @@
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
     "react-scripts": "file:../node_modules/react-scripts",
-    "axios": "^1.4.0",
+    "axios": "^1.6.0",
     "react-weblineindia-master-grid": "file:.."
   },
   "devDependencies": {
