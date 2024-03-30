@@ -1,10 +1,10 @@
 /* The SearchInput component renders an input field for searching within the data table. */
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { SearchInputProps } from '../utils/interface';
 
-const SearchInput = (props) => {
+const SearchInput : React.FC<SearchInputProps> = (props) => {
   const {
     searchPlaceHolder = 'Search...',
     searchBoxStyle,
@@ -14,33 +14,33 @@ const SearchInput = (props) => {
     parameter
   } = props
 
-  const [searchTimeout, setSearchTimeout] = useState(null)
-  const [searchValue, setSearchValue] = useState('')
+  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [searchValue, setSearchValue] = useState('');
 
   /** Handle Input Change */
   const handleInputChange = (e) => {
-    const inputValue = e.target.value
+    const inputValue = e.target.value;
     setSearchValue(inputValue)
     if (searchTimeout) {
-      clearTimeout(searchTimeout)
+      clearTimeout(searchTimeout);
     }
     const timeout = setTimeout(() => {
-      onSearch(inputValue)
-    }, 1000)
-    setSearchTimeout(timeout)
-  }
+      onSearch(inputValue);
+    }, 1000);
+    setSearchTimeout(timeout);
+  };
 
   /** Handle Clear button click  */
   const handleClearClick = () => {
     setSearchValue('')
-    onSearch('')
-  }
+    onSearch('');
+  };
 
   return (
-    <React.Fragment>
+    <>
       <div className={searchBoxStyle}>
         <input
-          type='text'
+          type="text"
           value={searchValue || parameter.searchQuery}
           onChange={handleInputChange}
           placeholder={searchPlaceHolder}
@@ -52,14 +52,7 @@ const SearchInput = (props) => {
           </button>
         )}
       </div>
-    </React.Fragment>
-  )
-}
-export default SearchInput
-
-SearchInput.propTypes = {
-  searchPlaceHolder: PropTypes.string,
-  searchBoxStyle: PropTypes.any,
-  searchInputStyle: PropTypes.any,
-  clearButtonStyle: PropTypes.any
-}
+    </>
+  );
+};
+export default SearchInput;
